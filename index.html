@@ -1,1 +1,24 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>osu! Redirect</title>
+    <script>
+        window.onload = function() {
+            // This grabs the time code from the end of the web address
+            const urlParams = new URLSearchParams(window.location.search);
+            const time = urlParams.get('time');
+            
+            if (time) {
+                // If it finds a time, it forces your computer to open osu!
+                window.location.href = "osu://edit/" + time;
+                document.getElementById("message").innerText = "Opening osu! to " + time + " ... You can close this tab now.";
+            } else {
+                document.getElementById("message").innerText = "Error: No time provided.";
+            }
+        }
+    </script>
+</head>
+<body style="background-color: #1a1a1a; color: #ffffff; font-family: Arial, sans-serif; text-align: center; padding-top: 100px;">
+    <h2 id="message">Loading...</h2>
+</body>
+</html>
