@@ -4,14 +4,22 @@
     <title>osu! Redirect</title>
     <script>
         window.onload = function() {
-            // This grabs the time code from the end of the web address
             const urlParams = new URLSearchParams(window.location.search);
             const time = urlParams.get('time');
             
             if (time) {
-                // If it finds a time, it forces your computer to open osu!
+                // 1. Force the computer to open osu!
                 window.location.href = "osu://edit/" + time;
-                document.getElementById("message").innerText = "Opening osu! to " + time + " ... You can close this tab now.";
+                document.getElementById("message").innerText = "Launching osu! to " + time + " ...";
+                
+                // 2. Wait 3 seconds, then try to close the tab
+                setTimeout(function() {
+                    window.close();
+                    
+                    // 3. If the browser's security blocks the auto-close, change the text
+                    document.getElementById("message").innerText = "osu! launched! You can safely close this tab.";
+                }, 3000);
+
             } else {
                 document.getElementById("message").innerText = "Error: No time provided.";
             }
